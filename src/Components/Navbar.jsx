@@ -41,7 +41,7 @@ const Navbar = () => {
         //
         onClick={() => { toggleclick()}}
       >
-       Geo Scope
+       Geo Scopes
       </h1>
       <div>
         <p
