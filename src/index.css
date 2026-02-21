@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* base styles */
+body {
+  margin: 1rem;
+  font-family: Nunito, sans-serif;
+  padding-top: 100px;
+
+  /* 🔥 ADD TRANSITION */
+  transition:
+    background-color 0.04s ease,
+    color 0.1s ease;
+}
+
+/* theme colors */
+@layer base {
+
+  body {
+    background-color: rgb(0, 0, 0);
+  }
+
+  .dark body {
+    background-color: white;
+  }
+
+}
+/* smooth transitions */
+
+

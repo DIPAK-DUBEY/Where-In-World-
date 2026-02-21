@@ -1,0 +1,42 @@
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import SingleCountry from './Components/SingleCountry.jsx'
+import BorderCountry from './Components/BorderCountry.jsx'
+import ByRegion from './Components/ByRegion.jsx'
+import ThemeSync from './Components/ThemeSync.jsx'
+import SmoothScrolling from "./Components/Scrolling";
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <>
+        <App />
+      </>
+
+    )
+  },
+  {
+    path: '/:id',
+    element: <SingleCountry />
+  },
+  {
+    path: '/country/:code',
+    element: <BorderCountry />
+  }, {
+    path: 'Region/:region',
+    element: <ByRegion />
+  }
+]);
+
+createRoot(document.getElementById('root')).render(
+  <>
+    <ThemeSync />
+    <SmoothScrolling/>
+    <RouterProvider router={router} />
+  </>
+
+)
+
