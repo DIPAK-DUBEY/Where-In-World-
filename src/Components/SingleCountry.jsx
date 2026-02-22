@@ -87,6 +87,7 @@ const SingleCountry = () => {
 
   useEffect(() => {
     if (id) fetchCountry();
+    window.scrollTo(0,0);
   }, [id]);
 
   // ---------------- RENDER ----------------

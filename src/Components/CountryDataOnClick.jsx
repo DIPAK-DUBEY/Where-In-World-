@@ -1,19 +1,23 @@
 import React from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
 import CalculateTime from "./CalculateTime";
 import PopulationChart from "./Population/PopulationChart";
 import useStore from "./ZustandState";
+import CountryMap from "../CountryMap";
+import countriesGeo from './Mapdata.json';
 const CountryDataOnClick = ({ data, populationData }) => {
   const navigate = useNavigate();
   const Mode = useStore((store) => store.Mode);
 
-
-
+  const geoCountry = useMemo(() => {
+    return countriesGeo.features.find(c =>
+      c.properties.name
+        .toLowerCase()
+        .includes(data?.name?.common?.toLowerCase())
+    );
+  }, [data?.name?.common]);
   if (!data) return null;
-
-  const lat = data?.latlng?.[0];
-  const lng = data?.latlng?.[1];
-
   return (
     <div
       className={`${Mode
@@ -166,18 +170,15 @@ ${Mode
       )}
 
       {/* Map */}
-      {lat && lng && (
-        <div className="mt-20 mb-5">
-          <iframe
-            title="Country Map"
-            width="100%"
-            height="400"
-            style={{ border: 0 }}
-            loading="lazy"
-            src={`https://www.openstreetmap.org/export/embed.html?bbox=${lng - 5},${lat - 5},${lng + 5},${lat + 5}&layer=mapnik`}
-          />
-        </div>
-      )}
+      {data &&
+        <CountryMap
+          countryName={data?.name?.common}
+          geoCountry={geoCountry}
+          lat={data?.latlng[0]}
+          lng={data?.latlng[1]}
+        />
+      }
+  
     </div>
   );
 };

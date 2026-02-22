@@ -9,7 +9,10 @@ import StatesPopulationIndia from "./Population/StatesPopulationIndia.json"
 import PopulationChart from "./Population/PopulationChart";
 import useStore from "./ZustandState";
 import Footer from "./Footer";
+import CountryMap from "../CountryMap";
+import countriesGeo from './Mapdata.json';
 import CountryPageShimmer from "./CountryPageShimmer";
+import { useMemo } from "react";
 
 const BorderCountry = () => {
   const navigate = useNavigate();
@@ -32,6 +35,13 @@ const BorderCountry = () => {
       console.log("error", err);
     }
   };
+  const geoCountry = useMemo(() => {
+    return countriesGeo.features.find(c =>
+      c.properties.name
+        .toLowerCase()
+        .includes(data[0]?.name?.common?.toLowerCase())
+    );
+  }, [data[0]?.name?.common]);
   const [populationData, setPopulationData] = useState({
     Name: '',
     Population: '',
@@ -79,6 +89,7 @@ const BorderCountry = () => {
       CountryPopulation: ''
     })
     fetchCountry();
+    window.scrollTo(0,0);
   }, [code]);
 
   return (
@@ -256,20 +267,13 @@ ${Mode
               )}
           </div>
         )}
-        {
-          lat && lng && (
-            <div className="mt-25  mb-5">
-
-              <iframe
-                title="Country Map"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                loading="lazy"
-                src={`https://www.openstreetmap.org/export/embed.html?bbox=${lng - 5},${lat - 5},${lng + 5},${lat + 5}&layer=mapnik`}
-              />
-            </div>
-          )
+        {data[0] &&
+          <CountryMap
+            countryName={data[0]?.name?.common}
+            geoCountry={geoCountry}
+            lat={data[0].latlng[0]}
+            lng={data[0].latlng[1]}
+          />
         }
         {
           data &&
