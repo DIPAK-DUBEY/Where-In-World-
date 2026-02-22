@@ -231,7 +231,7 @@ ${Mode
                             ? 'bg-neutral-900 text-white border border-neutral-700 hover:bg-neutral-800'
                             : 'bg-white text-neutral-900 border border-neutral-200 hover:bg-neutral-100'
                           }`}
-                        onClick={() => navigate(`/country/${Border}`)}
+                        onClick={() => navigate(`/Border/${Border}`)}
                       >
                         {Border}
                       </button>

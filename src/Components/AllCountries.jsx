@@ -10,7 +10,6 @@ import InputBySearch from './InputBySearch';
 const AllCountries = () => {
   const Mode = useStore((store) => store.Mode);
   const Input = useStore((state) => state.Input)
-  const setInput = useStore((state) => state.setInput)
   const [Data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const AllCountriesData = async () => {
@@ -18,11 +17,6 @@ const AllCountries = () => {
     setData(Response.data);
     setLoader(!loader);
   }
-  console.log(Input.toString().trim())
-  const handlingInput = (e) => {
-    setInput(e.target.value)
-  }
-
   useEffect(() => {
     AllCountriesData();
     window.scrollTo(0, 0);
@@ -48,10 +42,7 @@ const AllCountries = () => {
             loader &&
             <ShimmerMain />
           }
-          {
-
-            console.log((Input.toString().length))
-          }
+         
           {Data[0] &&
     
 

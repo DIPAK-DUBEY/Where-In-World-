@@ -19,11 +19,11 @@ const router = createBrowserRouter([
     )
   },
   {
-    path: '/:id',
+    path: '/Country/:id',
     element: <SingleCountry />
   },
   {
-    path: '/country/:code',
+    path: '/Border/:code',
     element: <BorderCountry />
   }, {
     path: 'Region/:region',
