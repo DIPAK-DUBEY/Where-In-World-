@@ -30,7 +30,7 @@ const BorderCountry = () => {
       );
       PopulationChecker(response.data);
       setData([response.data]);
-      setloading((prev)=>prev=false);
+      setloading((prev) => prev = false);
     } catch (err) {
       console.log("error", err);
     }
@@ -79,8 +79,9 @@ const BorderCountry = () => {
       })
     }
   }
-  const lat = (data[0]?.latlng[0]);
-  const lng = (data[0]?.latlng[1]);
+  function NameOfCountry() {
+    return data[0]?.name?.common;
+  }
   useEffect(() => {
     setPopulationData({
       Name: '',
@@ -88,8 +89,9 @@ const BorderCountry = () => {
       CountryName: '',
       CountryPopulation: ''
     })
+
     fetchCountry();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }, [code]);
 
   return (
@@ -225,7 +227,7 @@ const BorderCountry = () => {
 shadow-sm text-sm sm:text-base
 transition-all duration-300 ease-in-out
 backdrop-blur-[18px]
-hover:shadow-lg hover:-translate-y-[1px]
+hover:shadow-lg hover:-translate-y-1px
 active:scale-[0.97]
 ${Mode
                             ? 'bg-neutral-900 text-white border border-neutral-700 hover:bg-neutral-800'
@@ -269,7 +271,8 @@ ${Mode
         )}
         {data[0] &&
           <CountryMap
-            countryName={data[0]?.name?.common}
+          key={data[0].cca3}
+            countryName={NameOfCountry()}
             geoCountry={geoCountry}
             lat={data[0].latlng[0]}
             lng={data[0].latlng[1]}

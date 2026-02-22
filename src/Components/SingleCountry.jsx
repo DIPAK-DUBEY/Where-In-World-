@@ -78,8 +78,8 @@ const SingleCountry = () => {
       const country = response.data[0];
 
       setloader(!loader);
-      setData(country);          // ✅ store object
-      PopulationChecker(country); // ✅ calculate
+      setData(country);         
+      PopulationChecker(country); 
     } catch (err) {
       console.log("error", err);
     }
@@ -100,7 +100,7 @@ const SingleCountry = () => {
       }
 
       <CountryDataOnClick
-        data={data}                 // ✅ object pass
+        data={data}               
         populationData={populationData}
       />
       {
