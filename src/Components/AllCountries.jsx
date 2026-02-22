@@ -6,6 +6,7 @@ import Card from './Card';
 import useStore from './ZustandState';
 import Footer from './Footer';
 import ShimmerMain from './ShimmerMain';
+import InputBySearch from './InputBySearch';
 const AllCountries = () => {
   const Mode = useStore((store) => store.Mode);
   const Input = useStore((state) => state.Input)
@@ -17,12 +18,14 @@ const AllCountries = () => {
     setData(Response.data);
     setLoader(!loader);
   }
+  console.log(Input.toString().trim())
   const handlingInput = (e) => {
     setInput(e.target.value)
   }
 
   useEffect(() => {
     AllCountriesData();
+    window.scrollTo(0, 0);
   }, [])
   return (
     <>
@@ -31,16 +34,10 @@ const AllCountries = () => {
         className={`${Mode ? 'bg-black max-w-[1350px] mx-auto text-white' : 'bg-white/35 text-black  max-w-[1350px] mx-auto'}`}>
         <div
           className=' flex justify-between   mb-5 flex-wrap  gap-5 px-3   min-w-[220px]'>
-          <input
-            className={`backdrop-blur-[18px] border border-white/35
-              shadow-[0_8px_32px_rgba(0,0,0,0.20)] rounded-[10px] py-3   px-5 max-w-[200px]   ${Mode ? 'bg-black  text-white' : 'bg-white  text-black'} `}
-            type="text"
-            value={Input}
-            placeholder='Search By Country'
-            onChange={handlingInput}
-          />
+          <InputBySearch />
           <div
           >
+
             <NativeDropdown />
           </div>
 
@@ -51,15 +48,22 @@ const AllCountries = () => {
             loader &&
             <ShimmerMain />
           }
+          {
+
+            console.log((Input.toString().length))
+          }
           {Data[0] &&
+    
 
             (() => {
-              const filtered = Data.filter((country) =>
-                country.name.common
-                  .toLowerCase()
-                  .includes(Input.toLowerCase())
+              const search = Input.toString().toLowerCase();
+              const filtered = Data.filter((country) => {
+             
+                if (search === country.cca3.toLowerCase()) return true
+                if (search === country.name.common.toString().toLowerCase()) return true;
+                return country.name.common.toString().toLowerCase().includes(search);
+              }
               );
-
               if (filtered.length > 0) {
                 return filtered.map((country) => (
                   <Card key={country.cca3} country={country} />
