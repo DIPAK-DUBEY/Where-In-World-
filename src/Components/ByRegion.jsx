@@ -33,8 +33,8 @@ const ByRegion = () => {
 
       <div
         className=' text-black  max-w-[1430px] mx-auto px-[30px] py-[15px]  rounded-[50px]'>
-        <div className="flex justify-between  items-center  sm:p-5 flex-wrap gap-4 m-1">
-          <div className='flex gap-5 flex-wrap'>
+        <div className="flex justify-between  items-center  sm:p-5 flex-wrap gap-4 m-1 ">
+          <div className='flex gap-5 flex-wrap mt-3'>
 
             <InputBySearch />
             <button
