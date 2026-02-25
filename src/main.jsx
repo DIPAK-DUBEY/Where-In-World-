@@ -7,7 +7,6 @@ import BorderCountry from './Components/BorderCountry.jsx'
 import ByRegion from './Components/ByRegion.jsx'
 import ThemeSync from './Components/ThemeSync.jsx'
 import SmoothScrolling from "./Components/Scrolling";
-import RegionSingleCountry from './Components/RegionSingleCountry.jsx'
 
 const router = createBrowserRouter(
   [
