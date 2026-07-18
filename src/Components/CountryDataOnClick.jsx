@@ -21,7 +21,7 @@ const CountryDataOnClick = ({ data, populationData }) => {
   if (!data) return null;
 
   const currenciesList = Object.values(data.currencies || {});
-  const languagesList = Object.values(data.languages || {});
+  const languagesList = Object.values(data.languages || {}).slice(0, 3);
 
   return (
     <div
@@ -169,7 +169,7 @@ const CountryDataOnClick = ({ data, populationData }) => {
                 <div className="flex flex-col gap-2">
                   <h1 className="font-semibold">Languages</h1>
                   {languagesList.map((lang, i) => (
-                    <span key={i} className="opacity-60">{lang}</span>
+                    i < 3 ? <span key={i} className="opacity-60">{lang}</span> : null
                   ))}
                 </div>
               )}
@@ -259,7 +259,7 @@ ${Mode
           lng={data?.latlng[1]}
         />
       }
-  
+
     </div>
   );
 };

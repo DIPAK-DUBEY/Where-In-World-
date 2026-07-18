@@ -112,7 +112,7 @@ const BorderCountry = () => {
 
   const items = data[0];
   const currenciesList = items ? Object.values(items.currencies || {}) : [];
-  const languagesList = items ? Object.values(items.languages || {}) : [];
+  const languagesList = items ? Object.values(items.languages || {}).slice(0, 3) : [];
 
   return (
     <>
