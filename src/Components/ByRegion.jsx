@@ -2,31 +2,55 @@ import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import { useParams } from 'react-router'
 import NativeDropdown from './NativeDropdown'
-import axios from 'axios'
 import Card from './Card'
 import useStore from './ZustandState'
 import ShimmerMain from './ShimmerMain'
 import InputBySearch from './InputBySearch'
+import { getCountriesByRegion } from "../Api/restCountries";
 const ByRegion = () => {
   const { region } = useParams();
   const Input = useStore((store) => store.Input);
   const Mode = useStore((store) => store.Mode);
   const [Data, setData] = useState([]);
   const [loader, setloader] = useState(true);
+  const [error, setError] = useState(null);
   const FetchRegionData = async () => {
     try {
-      const Response = await axios(`https://restcountries.com/v3.1/region/${region}?fields=name,flags,capital,region,population,borders,cca3`);
-      setData(Response.data); // Response.data is already an array of countries
-      setloader((prev)=>prev=false);
+      setError(null);
+      setloader(true);
+      const data = await getCountriesByRegion(region);
+      setData(data);
+      setloader(false);
     } catch (error) {
-      console.error("Error fetching region data:", error);
-      setData([]); // Optionally clear data or set error state
+      setError(error.message);
+      setloader(false);
+      setData([]);
     }
   }
 
   useEffect(() => {
     FetchRegionData();
   }, [region])
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-semibold text-red-600">{error}</h1>
+            <button
+              onClick={FetchRegionData}
+              className="mt-4 px-6 py-2 rounded-md bg-blue-600 text-white cursor-pointer hover:bg-blue-700"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />

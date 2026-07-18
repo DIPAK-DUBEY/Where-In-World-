@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 
 const CountryMap = ({ countryName, geoCountry, lat, lng }) => {
+  if (lat == null || lng == null) return null;
 
   return (
     <div className="mt-25 mb-5 flex justify-center">

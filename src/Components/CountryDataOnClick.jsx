@@ -5,7 +5,7 @@ import CalculateTime from "./CalculateTime";
 import PopulationChart from "./Population/PopulationChart";
 import useStore from "./ZustandState";
 import CountryMap from "../CountryMap";
-import countriesGeo from './Mapdata.json';
+import countriesGeo from "./Mapdata.json";
 const CountryDataOnClick = ({ data, populationData }) => {
   const navigate = useNavigate();
   const Mode = useStore((store) => store.Mode);
@@ -17,7 +17,12 @@ const CountryDataOnClick = ({ data, populationData }) => {
         .includes(data?.name?.common?.toLowerCase())
     );
   }, [data?.name?.common]);
+
   if (!data) return null;
+
+  const currenciesList = Object.values(data.currencies || {});
+  const languagesList = Object.values(data.languages || {});
+
   return (
     <div
       className={`${Mode
@@ -38,13 +43,10 @@ const CountryDataOnClick = ({ data, populationData }) => {
           Go-Back
         </button>
 
-        {data.coatOfArms?.png && (
-          <img
-            className="w-10 sm:w-14 lg:w-16"
-            src={data.coatOfArms.png}
-            alt={data.name.common}
-          />
-        )}
+        <h1 className="text-2xl sm:text-3xl font-medium">
+          {data.flagEmoji && <span className="mr-2">{data.flagEmoji}</span>}
+          {data.name.common}
+        </h1>
       </div>
 
       {/* Main Section */}
@@ -92,6 +94,20 @@ const CountryDataOnClick = ({ data, populationData }) => {
                 <b>Region:</b>{" "}
                 <span className="opacity-60">{data.region}</span>
               </h1>
+
+              {data.subregion && (
+                <h1>
+                  <b>Subregion:</b>{" "}
+                  <span className="opacity-60">{data.subregion}</span>
+                </h1>
+              )}
+
+              {data.continents?.length > 0 && (
+                <h1>
+                  <b>Continent:</b>{" "}
+                  <span className="opacity-60">{data.continents.join(", ")}</span>
+                </h1>
+              )}
             </div>
 
             {/* Right */}
@@ -100,6 +116,27 @@ const CountryDataOnClick = ({ data, populationData }) => {
                 <b>CCA3:</b>{" "}
                 <span className="opacity-60">{data.cca3}</span>
               </h1>
+
+              {data.cca2 && (
+                <h1>
+                  <b>CCA2:</b>{" "}
+                  <span className="opacity-60">{data.cca2}</span>
+                </h1>
+              )}
+
+              {data.tlds?.length > 0 && (
+                <h1>
+                  <b>TLD:</b>{" "}
+                  <span className="opacity-60">{data.tlds.join(", ")}</span>
+                </h1>
+              )}
+
+              {data.callingCodes?.length > 0 && (
+                <h1>
+                  <b>Calling Code:</b>{" "}
+                  <span className="opacity-60">+{data.callingCodes.join(", +")}</span>
+                </h1>
+              )}
 
               <h1>
                 <b>Timezone:</b>{" "}
@@ -114,6 +151,50 @@ const CountryDataOnClick = ({ data, populationData }) => {
               </h1>
             </div>
           </div>
+
+          {/* Extra Info Row */}
+          {(currenciesList.length > 0 || languagesList.length > 0 || data.area?.kilometers) && (
+            <div className="flex flex-col md:flex-row gap-10 mt-2">
+              {currenciesList.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <h1 className="font-semibold">Currencies</h1>
+                  {currenciesList.map((c, i) => (
+                    <span key={i} className="opacity-60">
+                      {c.symbol || ""} {c.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {languagesList.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <h1 className="font-semibold">Languages</h1>
+                  {languagesList.map((lang, i) => (
+                    <span key={i} className="opacity-60">{lang}</span>
+                  ))}
+                </div>
+              )}
+              {data.area?.kilometers && (
+                <div className="flex flex-col gap-2">
+                  <h1 className="font-semibold">Area</h1>
+                  <span className="opacity-60">
+                    {data.area.kilometers.toLocaleString()} km²
+                    {data.area.miles && ` (${data.area.miles.toLocaleString()} mi²)`}
+                  </span>
+                  <span className="opacity-60">
+                    {data.landlocked ? "Landlocked" : "Has coastline"}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Multiple Timezones */}
+          {data.timezones?.length > 1 && (
+            <h1>
+              <b>All Timezones:</b>{" "}
+              <span className="opacity-60">{data.timezones.join(", ")}</span>
+            </h1>
+          )}
 
           {/* Borders */}
           <div className="flex flex-wrap gap-3 items-center">

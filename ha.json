@@ -1,0 +1,112 @@
+{
+  "names": {
+    "common": "Canada",
+    "official": "Canada",
+    "native": {
+      "eng": {
+        "common": "Canada",
+        "official": "Canada"
+      },
+      "fra": { 
+      }
+    }
+  },
+  "codes": {
+    "alpha_2": "CA",
+    "alpha_3": "CAN",
+    "ccn3": "124",
+    "fifa": "CAN",
+    "cioc": "CAN"
+  },
+  "capitals": [
+    {
+      "name": "Ottawa",
+      "primary": true,
+      "coordinates": {
+        "lat": 45.42,
+        "lng": -75.7
+      }
+    }
+  ],
+  "flag": {
+    "emoji": "🇨🇦",
+    "url_svg": "https://flags.restcountries.com/v5/svg/ca.svg",
+    "url_png": "https://flags.restcountries.com/v5/w640/ca.png"
+  },
+  "region": "Americas",
+  "subregion": "North America",
+  "area": {
+    "kilometers": 9984670,
+    "miles": 3855101.1
+  },
+  "borders": [
+    "USA"
+  ],
+  "calling_codes": [
+    "1"
+  ],
+  "currencies": [
+    {
+      "code": "CAD",
+      "name": "Canadian dollar",
+      "symbol": "$"
+    }
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "bcp47": "en"
+    },
+    {
+      "name": "French",
+      "bcp47": "fr"
+    }
+  ],
+  "leaders": [
+    {
+      "assets": [],
+      "attributes": {
+        "head_of_government": true,
+        "head_of_state": false
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Mark_Carney"
+      },
+      "name": "Mark Carney",
+      "title": "Prime Minister"
+    },
+    {
+      "assets": [],
+      "attributes": {
+        "head_of_government": false,
+        "head_of_state": true
+      },
+      "links": {
+        "wikipedia": "https://en.wikipedia.org/wiki/Charles_III"
+      },
+      "name": "Charles III",
+      "title": "Monarch"
+    }
+  ],
+  "memberships": {
+    "un": true,
+    "nato": true,
+    "g7": true,
+    "g20": true,
+    "commonwealth": true,
+    "oecd": true
+  },
+  "population": 38005238,
+  "timezones": [
+    "UTC-08:00",
+    "UTC-07:00",
+    "UTC-06:00",
+    "UTC-05:00",
+    "UTC-04:00",
+    "UTC-03:30"
+  ],
+  "tlds": [
+    ".ca"
+  ],
+  "uuid": "189581ed-44b0-47d7-9849-6b097401a7d6"
+}

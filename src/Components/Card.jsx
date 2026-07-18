@@ -5,7 +5,7 @@ const Card = ({ index, country }) => {
   const Mode = useStore((store) => store.Mode)
   const navigate = useNavigate();
   return (
-    <div key={index} onClick={() => navigate(`Country/${country.name.official}`)}
+    <div key={index} onClick={() => navigate(`Country/${encodeURIComponent(country.name.common)}`)}
       className={`
         mt-4 w-[300px]
         ${Mode ? 'bg-black/50 border border-white' : 'bg-white border border-white/35'}

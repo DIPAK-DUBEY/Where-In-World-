@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Navbar from "./Navbar";
-
-import axios from "axios";
 import StatesPopulationIndia from "./Population/StatesPopulationIndia.json";
 import CountryDataOnClick from "./CountryDataOnClick";
 import Footer from "./Footer";
 import CountryPageShimmer from "./CountryPageShimmer";
-
+import { getCountryByName } from "../Api/restCountries";
 
 const SingleCountry = () => {
   const [loader, setloader] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const [data, setData] = useState(null);
 
@@ -21,7 +20,6 @@ const SingleCountry = () => {
     CountryPopulation: "",
   });
 
-  // ---------------- POPULATION CHECK ----------------
   const PopulationChecker = (country) => {
     const states = StatesPopulationIndia;
 
@@ -60,10 +58,9 @@ const SingleCountry = () => {
     }
   };
 
-  // ---------------- FETCH COUNTRY ----------------
   const fetchCountry = async () => {
     try {
-      // reset old population data
+      setError(null);
       setPopulationData({
         Name: "",
         Population: "",
@@ -71,17 +68,19 @@ const SingleCountry = () => {
         CountryPopulation: "",
       });
 
-      const response = await axios(
-        `https://restcountries.com/v3.1/name/${id}?fullText=true&fields=name,flags,capital,region,population,borders,cca3,timezones,coatOfArms,maps,languages,currencies,subregion,continents,latlng`
-      );
+      const country = await getCountryByName(id);
+      if (!country) {
+        setError("Country not found");
+        setloader(false);
+        return;
+      }
 
-      const country = response.data[0];
-
-      setloader(!loader);
-      setData(country);         
-      PopulationChecker(country); 
+      setloader(false);
+      setData(country);
+      PopulationChecker(country);
     } catch (err) {
-      console.log("error", err);
+      setError(err.message);
+      setloader(false);
     }
   };
 
@@ -90,7 +89,25 @@ const SingleCountry = () => {
     window.scrollTo(0,0);
   }, [id]);
 
-  // ---------------- RENDER ----------------
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-semibold text-red-600">{error}</h1>
+            <button
+              onClick={fetchCountry}
+              className="mt-4 px-6 py-2 rounded-md bg-blue-600 text-white cursor-pointer hover:bg-blue-700"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -100,7 +117,7 @@ const SingleCountry = () => {
       }
 
       <CountryDataOnClick
-        data={data}               
+        data={data}
         populationData={populationData}
       />
       {

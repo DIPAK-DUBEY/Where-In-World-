@@ -5,9 +5,10 @@ import useStore from "./ZustandState";
     const Mode = useStore((store)=>store.Mode)
     const [currentTime, setCurrentTime] = useState(() => getLocalTime());
     useEffect(() => {
-      setInterval(() => {
+      const id = setInterval(() => {
         setCurrentTime(getLocalTime());
       }, 1000);
+      return () => clearInterval(id);
 
      
     }, [e]);

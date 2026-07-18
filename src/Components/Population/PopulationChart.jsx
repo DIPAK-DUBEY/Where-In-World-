@@ -1,10 +1,8 @@
 import { Bar } from "react-chartjs-2";
 import "../../Charts/chartSetup";
-import useStore from "../ZustandState";
 
 export default function PopulationChart({ populationData }) {
   if (!populationData) return null;
-  const Mode = useStore((store)=>store.Mode);
 
   const data = {
     labels: [
