@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="/Geo-Scope.png" alt="GeoScope Logo" width="120" />
   <h1 align="center">GeoScope</h1>
+  <img src="/Geo-Scope.png" alt="GeoScope Hero" width="600" />
   <p align="center">
     Explore countries around the world with detailed information, population insights, and interactive visualizations.
   </p>
